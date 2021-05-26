@@ -1,8 +1,5 @@
-const functionName = process.argv[2]
+const writeFile = require('./writeFile')
 
-// console.log(process.argv)
+const functionName = process.argv[2] ?? 'myFunction'
 
-console.log(`
-function ${functionName} () {
-}
-`)
+writeFile(functionName)
