@@ -6,7 +6,19 @@ const questions = [
     type: 'input',
     name: 'file',
     message:
-      'Which functions and files would you like to create? Please seperate by commas.',
+      'Which functions and files would you like to create? Please seperate by comma.',
+  },
+  {
+    type: 'checkbox',
+    message: 'Please select a file type',
+    name: 'fileTypes',
+    choices: [{ name: 'Component' }, { name: 'Spec' }, { name: 'Stories' }],
+    validate(answer) {
+      if (answer.length < 1) {
+        return 'You must choose at least one file type.'
+      }
+      return true
+    },
   },
 ]
 
@@ -14,17 +26,5 @@ inquirer.prompt(questions).then(answers => {
   // answers is an object: { file: 'header, footer'}
   const files = answers['file'].split(',').map(el => el.trim())
   files.forEach(file => writeFile(file))
-  console.log(files)
+  console.log(answers)
 })
-
-// rl.question(
-//   'Hello, which functions and files would you like to create? Please seperate by comma.',
-//   answer => {
-//     answer
-//       .split(',')
-//       .map(wurst => wurst.trim())
-//       .forEach(wurst => writeFile(wurst))
-//     // Lene's Weg: answer.split(',').map(name => writeFile(name.trim()))
-//     rl.close()
-//   }
-// )
